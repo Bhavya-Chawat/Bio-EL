@@ -1,0 +1,12 @@
+{
+  "event": "assam_2022",
+  "start_date": "2022-06-15",
+  "outbreak_markers": [
+    {
+      "district": "Cachar",
+      "date": "2022-06-15T12:00:00Z",
+      "disease": "Cholera"
+    }
+  ],
+  "series": []
+}

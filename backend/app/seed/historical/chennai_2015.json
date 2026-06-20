@@ -1,0 +1,12 @@
+{
+  "event": "chennai_2015",
+  "start_date": "2015-11-20",
+  "outbreak_markers": [
+    {
+      "district": "Chennai",
+      "date": "2015-11-20T12:00:00Z",
+      "disease": "Cholera"
+    }
+  ],
+  "series": []
+}

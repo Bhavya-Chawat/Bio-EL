@@ -1,0 +1,61 @@
+@import "shadcn/tailwind.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-sans);
+  }
+  :root {
+    --background: #FDF4AF;
+    --foreground: #34908B;
+    --card: #ffffff;
+    --card-foreground: #34908B;
+    --popover: #FDF4AF;
+    --popover-foreground: #34908B;
+    --primary: #34908B;
+    --primary-foreground: #ffffff;
+    --secondary: #A5E9DD;
+    --secondary-foreground: #34908B;
+    --muted: #A5E9DD;
+    --muted-foreground: #6FBEB2;
+    --accent: #6FBEB2;
+    --accent-foreground: #ffffff;
+    --destructive: #ff4444;
+    --destructive-foreground: #ffffff;
+    --border: #6FBEB2;
+    --input: #A5E9DD;
+    --ring: #34908B;
+    --radius: 0.5rem;
+    --chart-1: #6FBEB2;
+    --chart-2: #A5E9DD;
+    --chart-3: #34908B;
+    --chart-4: #FDF4AF;
+    --chart-5: #ffffff;
+    --sidebar: #FDF4AF;
+    --sidebar-foreground: #34908B;
+    --sidebar-primary: #34908B;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #A5E9DD;
+    --sidebar-accent-foreground: #34908B;
+    --sidebar-border: #6FBEB2;
+    --sidebar-ring: #34908B;
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

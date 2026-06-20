@@ -1,0 +1,12 @@
+{
+  "event": "kerala_2018",
+  "start_date": "2018-08-10",
+  "outbreak_markers": [
+    {
+      "district": "Ernakulam",
+      "date": "2018-08-10T12:00:00Z",
+      "disease": "Cholera"
+    }
+  ],
+  "series": []
+}
