@@ -210,29 +210,29 @@ export default function Sandbox() {
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0f1e] text-white p-4 md:p-8 space-y-6 font-sans">
+    <div className="min-h-screen bg-background/50 text-foreground p-4 md:p-8 space-y-6 font-sans">
 
       {/* ── HEADER ── */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#1a1f3e] via-[#0f172a] to-[#0a0f1e] border border-white/10 rounded-2xl p-8 shadow-2xl">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10 pointer-events-none" />
+      <div className="relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-primary-foreground border border-border rounded-2xl p-8 shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-foreground/10 via-secondary-foreground/10 to-primary-foreground/10 pointer-events-none" />
         <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2 bg-blue-500/20 rounded-xl border border-blue-500/30">
-                <Archive size={24} className="text-blue-400" />
+              <div className="p-2 bg-primary-foreground/20 rounded-xl border border-primary-foreground/30">
+                <Archive size={24} className="text-primary-foreground" />
               </div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-4xl font-black tracking-tight text-primary-foreground drop-shadow-sm">
                 Historical Replay Engine
               </h1>
             </div>
-            <p className="text-slate-400 text-sm md:text-base max-w-xl">
+            <p className="text-primary-foreground/90 font-medium text-sm md:text-base max-w-xl">
               Simulate past flood disasters through the live BioShield risk pipeline. Watch how predicted zones evolved against real outbreak data — day by day.
             </p>
           </div>
-          <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-xl px-4 py-2">
-            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-            <span className="text-green-400 text-sm font-semibold">Risk Engine Online</span>
+          <div className="flex items-center gap-2 bg-primary-foreground/10 border border-primary-foreground/20 rounded-xl px-4 py-2">
+            <span className="w-2 h-2 rounded-full bg-primary-foreground animate-pulse" />
+            <span className="text-primary-foreground text-sm font-semibold">Risk Engine Online</span>
           </div>
         </div>
       </div>
@@ -250,14 +250,14 @@ export default function Sandbox() {
         <div className="lg:col-span-1 space-y-4">
 
           {/* Event Cards */}
-          <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 space-y-3">
-            <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+          <div className="bg-card shadow-sm border border-border rounded-2xl p-5 space-y-3">
+            <h2 className="text-sm font-bold text-foreground/80 uppercase tracking-widest mb-4 flex items-center gap-2">
               <Flame size={14} className="text-orange-400" /> Replay Scenarios
             </h2>
             {events.length === 0 ? (
               <div className="space-y-3">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-24 bg-white/5 rounded-xl animate-pulse" />
+                  <div key={i} className="h-24 bg-muted rounded-xl animate-pulse" />
                 ))}
               </div>
             ) : (
@@ -272,42 +272,42 @@ export default function Sandbox() {
                   }}
                   className={`w-full text-left p-4 rounded-xl border transition-all duration-200 group relative overflow-hidden ${
                     selectedEvent === evt.id
-                      ? "border-blue-500/50 bg-blue-500/10 shadow-lg shadow-blue-500/10"
-                      : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
+                      ? "border-primary bg-secondary shadow-md"
+                      : "border-border/50 bg-card hover:bg-secondary/40 hover:border-primary/50"
                   }`}
                 >
                   {selectedEvent === evt.id && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 pointer-events-none" />
+                    <div className="absolute inset-0 bg-transparent pointer-events-none" />
                   )}
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xl">{evt.icon}</span>
-                        <h3 className="font-bold text-white text-sm">{evt.title}</h3>
+                        <h3 className="font-bold text-foreground text-sm">{evt.title}</h3>
                       </div>
                       <div className="flex flex-wrap gap-1.5 mb-2">
-                        <span className="text-[10px] bg-white/10 text-slate-300 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] bg-muted/80 text-foreground px-2 py-0.5 rounded-full">
                           {evt.year}
                         </span>
                         <span className="text-[10px] bg-orange-500/20 text-orange-400 border border-orange-500/30 px-2 py-0.5 rounded-full font-semibold">
                           {evt.severity}
                         </span>
-                        <span className="text-[10px] bg-white/10 text-slate-300 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] bg-muted/80 text-foreground px-2 py-0.5 rounded-full">
                           {evt.days} days
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
+                      <p className="text-[11px] text-foreground/80 font-medium line-clamp-2 leading-relaxed">
                         {evt.description}
                       </p>
                     </div>
                     <ChevronRight
                       size={16}
                       className={`mt-1 shrink-0 transition-transform ${
-                        selectedEvent === evt.id ? "text-blue-400 translate-x-0.5" : "text-slate-600"
+                        selectedEvent === evt.id ? "text-primary translate-x-0.5" : "text-foreground/50"
                       }`}
                     />
                   </div>
-                  <div className="mt-3 flex gap-3 text-[10px] text-slate-500">
+                  <div className="mt-3 flex gap-3 text-[10px] text-foreground/80 font-medium">
                     <span className="flex items-center gap-1">
                       <Users size={10} /> {evt.casualties?.toLocaleString()} casualties
                     </span>
@@ -326,8 +326,8 @@ export default function Sandbox() {
             disabled={!selectedEvent || running}
             className={`w-full relative overflow-hidden py-4 rounded-xl font-black text-base tracking-wide transition-all duration-300 flex items-center justify-center gap-3 ${
               !selectedEvent || running
-                ? "bg-white/5 text-slate-600 border border-white/10 cursor-not-allowed"
-                : "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]"
+                ? "bg-muted text-foreground/50 border border-border cursor-not-allowed"
+                : "bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98]"
             }`}
           >
             {running ? (
@@ -345,14 +345,14 @@ export default function Sandbox() {
 
           {/* Event Info Card */}
           {selectedEventMeta && (
-            <div className="bg-[#111827] border border-white/10 rounded-2xl p-5 space-y-3 text-sm">
-              <h3 className="font-bold text-slate-300 flex items-center gap-2">
+            <div className="bg-card shadow-sm border border-border rounded-2xl p-5 space-y-3 text-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2">
                 <Zap size={14} className="text-yellow-400" /> Event Details
               </h3>
-              <div className="space-y-2 text-slate-400">
+              <div className="space-y-2 text-muted-foreground">
                 <div className="flex justify-between">
                   <span>Period</span>
-                  <span className="text-white font-medium">{selectedEventMeta.start_date} → {selectedEventMeta.end_date}</span>
+                  <span className="text-foreground font-medium">{selectedEventMeta.start_date} → {selectedEventMeta.end_date}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Casualties</span>
@@ -363,10 +363,10 @@ export default function Sandbox() {
                   <span className="text-orange-400 font-bold">{selectedEventMeta.displaced?.toLocaleString()}</span>
                 </div>
                 <div>
-                  <span className="block mb-1 text-slate-400">Affected Districts</span>
+                  <span className="block mb-1 text-muted-foreground">Affected Districts</span>
                   <div className="flex flex-wrap gap-1">
                     {selectedEventMeta.districts_affected.map((d) => (
-                      <span key={d} className="text-[10px] bg-white/10 text-slate-300 px-2 py-0.5 rounded-full">
+                      <span key={d} className="text-[10px] bg-muted/80 text-foreground px-2 py-0.5 rounded-full">
                         {d}
                       </span>
                     ))}
@@ -381,10 +381,10 @@ export default function Sandbox() {
         <div className="lg:col-span-2 space-y-4">
 
           {!result ? (
-            <div className="bg-[#111827] border border-white/10 rounded-2xl min-h-[540px] flex flex-col items-center justify-center text-slate-600 space-y-4">
+            <div className="bg-card shadow-sm border border-border rounded-2xl min-h-[540px] flex flex-col items-center justify-center text-muted-foreground space-y-4">
               <Archive size={56} className="opacity-20" />
               <div className="text-center space-y-1">
-                <p className="font-semibold text-slate-500">No replay running</p>
+                <p className="font-semibold text-muted-foreground">No replay running</p>
                 <p className="text-sm">Select a scenario from the left and click Execute Historical Replay</p>
               </div>
             </div>
@@ -414,39 +414,39 @@ export default function Sandbox() {
                 ].map((m) => (
                   <div
                     key={m.label}
-                    className={`bg-[#111827] border border-white/10 rounded-2xl p-4 flex flex-col gap-2`}
+                    className={`bg-card shadow-sm border border-border rounded-2xl p-4 flex flex-col gap-2`}
                   >
                     <div className="flex items-center gap-2">
                       {m.icon}
-                      <span className="text-[11px] text-slate-400 font-medium">{m.label}</span>
+                      <span className="text-[11px] text-muted-foreground font-medium">{m.label}</span>
                     </div>
-                    <p className="text-2xl font-black text-white">{m.value}</p>
+                    <p className="text-2xl font-black text-foreground">{m.value}</p>
                   </div>
                 ))}
               </div>
 
               {/* Current Day Snapshot */}
               {currentFrame && (
-                <div className="bg-[#111827] border border-white/10 rounded-2xl p-5">
+                <div className="bg-card shadow-sm border border-border rounded-2xl p-5">
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <h3 className="font-bold text-white text-lg">
+                      <h3 className="font-bold text-foreground text-lg">
                         Day {visibleDay + 1} — {currentFrame.day}
                       </h3>
-                      <p className="text-slate-500 text-xs">{currentFrame.date}</p>
+                      <p className="text-muted-foreground text-xs">{currentFrame.date}</p>
                     </div>
                     {/* Playback Controls */}
                     <div className="flex items-center gap-2">
                       {/* Speed Selector */}
-                      <div className="flex items-center bg-white/5 border border-white/10 rounded-lg overflow-hidden text-xs">
+                      <div className="flex items-center bg-card shadow-sm border border-border/50 rounded-lg overflow-hidden text-xs">
                         {SPEEDS.map((s) => (
                           <button
                             key={s}
                             onClick={() => setSpeed(s)}
                             className={`px-2.5 py-1.5 font-semibold transition-colors ${
                               speed === s
-                                ? "bg-blue-600 text-white"
-                                : "text-slate-400 hover:text-white"
+                                ? "bg-primary text-primary-foreground"
+                                : "text-muted-foreground hover:text-foreground"
                             }`}
                           >
                             {s}×
@@ -455,21 +455,21 @@ export default function Sandbox() {
                       </div>
                       <button
                         onClick={reset}
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
+                        className="p-2 rounded-lg bg-muted hover:bg-muted/80 border border-border text-muted-foreground hover:text-foreground transition-colors"
                         title="Reset"
                       >
                         <RotateCcw size={14} />
                       </button>
                       <button
                         onClick={() => setVisibleDay((v) => Math.min(v + 1, result.timeline.length - 1))}
-                        className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white transition-colors"
+                        className="p-2 rounded-lg bg-muted hover:bg-muted/80 border border-border text-muted-foreground hover:text-foreground transition-colors"
                         title="Step Forward"
                       >
                         <SkipForward size={14} />
                       </button>
                       <button
                         onClick={() => (isPlaying ? stopPlayback() : startPlayback())}
-                        className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm flex items-center gap-2 transition-colors"
+                        className="px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-sm flex items-center gap-2 transition-colors"
                       >
                         {isPlaying ? <Pause size={14} /> : <Play size={14} />}
                         {isPlaying ? "Pause" : "Play"}
@@ -490,12 +490,12 @@ export default function Sandbox() {
                       }}
                       className="w-full h-2 rounded-full appearance-none cursor-pointer"
                       style={{
-                        background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${
+                        background: `linear-gradient(to right, #34908B 0%, #34908B ${
                           (visibleDay / (result.timeline.length - 1)) * 100
-                        }%, #1f2937 ${(visibleDay / (result.timeline.length - 1)) * 100}%, #1f2937 100%)`,
+                        }%, #A5E9DD ${(visibleDay / (result.timeline.length - 1)) * 100}%, #A5E9DD 100%)`,
                       }}
                     />
-                    <div className="flex justify-between text-[10px] text-slate-600">
+                    <div className="flex justify-between text-[10px] text-muted-foreground">
                       <span>{result.timeline[0]?.day}</span>
                       <span>{result.timeline[result.timeline.length - 1]?.day}</span>
                     </div>
@@ -506,15 +506,15 @@ export default function Sandbox() {
                     {currentFrame.districts.map((d, i) => (
                       <div
                         key={d.district}
-                        className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs"
+                        className="flex items-center gap-2 bg-muted border border-border rounded-lg px-3 py-2 text-xs"
                         style={{ borderLeftColor: DISTRICT_COLORS[i % DISTRICT_COLORS.length], borderLeftWidth: 3 }}
                       >
                         <div>
-                          <span className="font-semibold text-white">{d.district}</span>
+                          <span className="font-semibold text-foreground">{d.district}</span>
                           <div className="flex gap-1.5 mt-0.5 items-center">
-                            <span className="text-slate-500">Pred:</span>
+                            <span className="text-muted-foreground">Pred:</span>
                             <ZoneBadge zone={d.predicted_zone} />
-                            <span className="text-slate-500 ml-1">Act:</span>
+                            <span className="text-muted-foreground ml-1">Act:</span>
                             <ZoneBadge zone={d.actual_zone} />
                             {d.has_outbreak && (
                               <span className="text-red-400 font-bold">⚠ {d.outbreak_disease}</span>
@@ -528,31 +528,31 @@ export default function Sandbox() {
               )}
 
               {/* Chart */}
-              <div className="bg-[#111827] border border-white/10 rounded-2xl p-5">
-                <h3 className="font-bold text-white mb-1 text-sm">Risk Score Timeline</h3>
-                <p className="text-slate-500 text-xs mb-4">Predicted R-Score per district — solid = predicted, dashed = actual severity index</p>
+              <div className="bg-card shadow-sm border border-border rounded-2xl p-5">
+                <h3 className="font-bold text-foreground mb-1 text-sm">Risk Score Timeline</h3>
+                <p className="text-muted-foreground text-xs mb-4">Predicted R-Score per district — solid = predicted, dashed = actual severity index</p>
                 <div className="h-[260px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={chartData} margin={{ top: 5, right: 10, left: -15, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(111, 190, 178, 0.2)" />
                       <XAxis
                         dataKey="day"
-                        tick={{ fontSize: 11, fill: "#64748b" }}
-                        axisLine={{ stroke: "rgba(255,255,255,0.1)" }}
+                        tick={{ fontSize: 11, fill: "#34908B" }}
+                        axisLine={{ stroke: "rgba(111, 190, 178, 0.4)" }}
                         tickLine={false}
                       />
                       <YAxis
                         tick={{ fontSize: 11, fill: "#64748b" }}
-                        axisLine={{ stroke: "rgba(255,255,255,0.1)" }}
+                        axisLine={{ stroke: "rgba(111, 190, 178, 0.4)" }}
                         tickLine={false}
                       />
                       <Tooltip
                         contentStyle={{
-                          background: "#1e293b",
-                          border: "1px solid rgba(255,255,255,0.1)",
+                          background: "#ffffff",
+                          border: "1px solid #6FBEB2",
                           borderRadius: "12px",
                           fontSize: "12px",
-                          color: "#e2e8f0",
+                          color: "#34908B",
                         }}
                       />
                       <Legend wrapperStyle={{ fontSize: "11px", paddingTop: "12px" }} />
@@ -586,9 +586,9 @@ export default function Sandbox() {
                       {currentFrame && (
                         <ReferenceLine
                           x={currentFrame.day}
-                          stroke="rgba(255,255,255,0.3)"
+                          stroke="#34908B"
                           strokeDasharray="2 2"
-                          label={{ value: "▼", fill: "#94a3b8", fontSize: 10, position: "top" }}
+                          label={{ value: "▼", fill: "#34908B", fontSize: 10, position: "top" }}
                         />
                       )}
                     </LineChart>
