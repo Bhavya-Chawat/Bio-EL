@@ -20,10 +20,10 @@ echo Starting BioShield Dashboard Services...
 echo ==============================================
 
 echo [1/2] Starting Backend Server on Port 8000...
-start "BioShield Backend" cmd /k "cd backend && .\.venv\Scripts\activate && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+start "BioShield Backend" cmd /k "cd backend && .\venv\Scripts\activate && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
 echo [2/2] Starting Next.js Frontend Server on Port 3000...
-start "BioShield Frontend" cmd /k "cd frontend && npm run dev"
+start "BioShield Frontend" cmd /k "cd frontend && npm run dev -- --turbo"
 
 echo.
 echo Both services are starting in new terminal windows!

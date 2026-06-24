@@ -1,0 +1,4 @@
+# Pyrefly configuration for BioShield backend
+# Tells Pyrefly to use the venv Python so it finds sqlalchemy, fastapi, etc.
+
+python_interpreter = "venv/Scripts/python.exe"

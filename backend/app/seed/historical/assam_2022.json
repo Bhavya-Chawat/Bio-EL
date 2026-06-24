@@ -1,12 +1,128 @@
 {
   "event": "assam_2022",
+  "title": "Assam Floods",
+  "year": 2022,
   "start_date": "2022-06-15",
+  "end_date": "2022-06-24",
+  "description": "One of the most severe flood events in Assam's recent history. The Brahmaputra and Barak rivers breached their banks, inundating over 2,000 villages across 32 districts.",
+  "districts_affected": ["Cachar", "Silchar", "Hojai", "Nagaon", "Kamrup"],
+  "casualties": 159,
+  "displaced": 5500000,
   "outbreak_markers": [
-    {
-      "district": "Cachar",
-      "date": "2022-06-15T12:00:00Z",
-      "disease": "Cholera"
-    }
+    { "district": "Cachar",  "date": "2022-06-18T12:00:00Z", "disease": "Cholera" },
+    { "district": "Silchar", "date": "2022-06-19T12:00:00Z", "disease": "Leptospirosis" },
+    { "district": "Nagaon",  "date": "2022-06-20T00:00:00Z", "disease": "Hepatitis A" }
   ],
-  "series": []
+  "series": [
+    {
+      "day": "Jun 15",
+      "date": "2022-06-15",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 78.0,  "river_level_m": 4.5, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "medium" },
+        { "name": "Silchar", "rainfall_mm": 92.0,  "river_level_m": 5.0, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "medium" },
+        { "name": "Hojai",   "rainfall_mm": 55.0,  "river_level_m": 3.8, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "low"    },
+        { "name": "Nagaon",  "rainfall_mm": 60.0,  "river_level_m": 4.2, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "low"    },
+        { "name": "Kamrup",  "rainfall_mm": 48.0,  "river_level_m": 3.5, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "low"    }
+      ]
+    },
+    {
+      "day": "Jun 16",
+      "date": "2022-06-16",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 145.0, "river_level_m": 5.5, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "medium" },
+        { "name": "Silchar", "rainfall_mm": 168.0, "river_level_m": 5.9, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "medium" },
+        { "name": "Hojai",   "rainfall_mm": 110.0, "river_level_m": 4.8, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "medium" },
+        { "name": "Nagaon",  "rainfall_mm": 125.0, "river_level_m": 5.2, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "medium" },
+        { "name": "Kamrup",  "rainfall_mm": 98.0,  "river_level_m": 4.6, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "medium" }
+      ]
+    },
+    {
+      "day": "Jun 17",
+      "date": "2022-06-17",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 215.0, "river_level_m": 6.3, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Silchar", "rainfall_mm": 250.0, "river_level_m": 6.8, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Hojai",   "rainfall_mm": 180.0, "river_level_m": 5.5, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Nagaon",  "rainfall_mm": 195.0, "river_level_m": 6.0, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Kamrup",  "rainfall_mm": 160.0, "river_level_m": 5.3, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "high"   }
+      ]
+    },
+    {
+      "day": "Jun 18",
+      "date": "2022-06-18",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 285.0, "river_level_m": 7.0, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Silchar", "rainfall_mm": 315.0, "river_level_m": 7.5, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Hojai",   "rainfall_mm": 240.0, "river_level_m": 6.2, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Nagaon",  "rainfall_mm": 260.0, "river_level_m": 6.6, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Kamrup",  "rainfall_mm": 220.0, "river_level_m": 5.9, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "high"   }
+      ]
+    },
+    {
+      "day": "Jun 19",
+      "date": "2022-06-19",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 345.0, "river_level_m": 7.4, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Silchar", "rainfall_mm": 380.0, "river_level_m": 7.9, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Hojai",   "rainfall_mm": 295.0, "river_level_m": 6.6, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Nagaon",  "rainfall_mm": 310.0, "river_level_m": 7.0, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Kamrup",  "rainfall_mm": 275.0, "river_level_m": 6.2, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "high"   }
+      ]
+    },
+    {
+      "day": "Jun 20",
+      "date": "2022-06-20",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 310.0, "river_level_m": 7.2, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Silchar", "rainfall_mm": 340.0, "river_level_m": 7.7, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Hojai",   "rainfall_mm": 260.0, "river_level_m": 6.4, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Nagaon",  "rainfall_mm": 275.0, "river_level_m": 6.8, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Kamrup",  "rainfall_mm": 240.0, "river_level_m": 6.0, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "high"   }
+      ]
+    },
+    {
+      "day": "Jun 21",
+      "date": "2022-06-21",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 210.0, "river_level_m": 6.8, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Silchar", "rainfall_mm": 240.0, "river_level_m": 7.3, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "high"   },
+        { "name": "Hojai",   "rainfall_mm": 175.0, "river_level_m": 6.0, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Nagaon",  "rainfall_mm": 190.0, "river_level_m": 6.4, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "high"   },
+        { "name": "Kamrup",  "rainfall_mm": 155.0, "river_level_m": 5.6, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "high"   }
+      ]
+    },
+    {
+      "day": "Jun 22",
+      "date": "2022-06-22",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 110.0, "river_level_m": 6.2, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "medium" },
+        { "name": "Silchar", "rainfall_mm": 130.0, "river_level_m": 6.7, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "medium" },
+        { "name": "Hojai",   "rainfall_mm": 85.0,  "river_level_m": 5.5, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "medium" },
+        { "name": "Nagaon",  "rainfall_mm": 95.0,  "river_level_m": 5.9, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "medium" },
+        { "name": "Kamrup",  "rainfall_mm": 75.0,  "river_level_m": 5.1, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "medium" }
+      ]
+    },
+    {
+      "day": "Jun 23",
+      "date": "2022-06-23",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 42.0,  "river_level_m": 5.5, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "low"    },
+        { "name": "Silchar", "rainfall_mm": 55.0,  "river_level_m": 6.0, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "medium" },
+        { "name": "Hojai",   "rainfall_mm": 32.0,  "river_level_m": 4.8, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "low"    },
+        { "name": "Nagaon",  "rainfall_mm": 38.0,  "river_level_m": 5.2, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "low"    },
+        { "name": "Kamrup",  "rainfall_mm": 28.0,  "river_level_m": 4.4, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "low"    }
+      ]
+    },
+    {
+      "day": "Jun 24",
+      "date": "2022-06-24",
+      "districts": [
+        { "name": "Cachar",  "rainfall_mm": 12.0,  "river_level_m": 4.8, "danger_mark_m": 6.5, "v_score": 3, "actual_zone": "low"    },
+        { "name": "Silchar", "rainfall_mm": 18.0,  "river_level_m": 5.2, "danger_mark_m": 7.0, "v_score": 3, "actual_zone": "low"    },
+        { "name": "Hojai",   "rainfall_mm": 8.0,   "river_level_m": 4.0, "danger_mark_m": 5.8, "v_score": 2, "actual_zone": "low"    },
+        { "name": "Nagaon",  "rainfall_mm": 10.0,  "river_level_m": 4.4, "danger_mark_m": 6.2, "v_score": 2, "actual_zone": "low"    },
+        { "name": "Kamrup",  "rainfall_mm": 6.0,   "river_level_m": 3.6, "danger_mark_m": 5.5, "v_score": 2, "actual_zone": "low"    }
+      ]
+    }
+  ]
 }

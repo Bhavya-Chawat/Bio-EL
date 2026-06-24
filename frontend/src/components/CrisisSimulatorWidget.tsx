@@ -16,8 +16,26 @@ export default function CrisisSimulatorWidget({ onSimulate }: { onSimulate: (int
     }, 800);
   };
 
-  const handleReplay = () => {
-    alert("Running Historical Replay: Kerala 2018 Event Pipeline Initialized. (See backend logs)");
+  const [isReplaying, setIsReplaying] = useState(false);
+
+  const handleReplay = async () => {
+    setIsReplaying(true);
+    try {
+      const res = await fetch("http://localhost:8000/api/replay/kerala_2018/run", {
+        method: "POST"
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert(`Historical Replay Complete: ${data.event}\n\nAccuracy: ${data.metrics.accuracy_pct}%\nTotal Predictions: ${data.metrics.total_predictions}\nHigh Risk Accuracy: ${data.metrics.high_risk_accuracy_pct}%`);
+      } else {
+        alert(`Error: ${data.detail || "Failed to run replay"}`);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to connect to backend for historical replay.");
+    } finally {
+      setIsReplaying(false);
+    }
   };
 
   return (
@@ -58,9 +76,11 @@ export default function CrisisSimulatorWidget({ onSimulate }: { onSimulate: (int
         <div className="pt-2 border-t mt-4 border-border">
           <button 
             onClick={handleReplay}
-            className="w-full bg-secondary text-secondary-foreground font-bold py-2 rounded-lg shadow-sm hover:opacity-90 transition flex items-center justify-center gap-2 text-sm"
+            disabled={isReplaying}
+            className="w-full bg-secondary text-secondary-foreground font-bold py-2 rounded-lg shadow-sm hover:opacity-90 transition flex items-center justify-center gap-2 text-sm disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            <Archive size={16} /> Run Historical Replay
+            {isReplaying ? <RefreshCw className="animate-spin" size={16} /> : <Archive size={16} />}
+            {isReplaying ? "Running Replay..." : "Run Historical Replay"}
           </button>
         </div>
       </div>
