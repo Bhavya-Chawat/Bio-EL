@@ -42,14 +42,28 @@ export default function Dashboard() {
   }, []);
 
   const triggerCrisis = (intensity: number) => {
-    // Artificial spiking for demo purposes
-    setDistricts(prev => prev.map(d => {
-      // The higher the intensity, the higher chance of flipping to 'high'
-      if (Math.random() < (intensity / 100) * 0.3) {
-        return { ...d, latest_zone: 'high' };
-      }
-      return d;
-    }));
+    setLoading(true);
+    fetch("http://localhost:8000/api/districts/crisis-spike", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ intensity }),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        // Refetch the updated districts from the database
+        return fetch("http://localhost:8000/api/districts?seeded=true");
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setDistricts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error triggering crisis simulation:", err);
+        setLoading(false);
+      });
   };
 
   const highRisk = districts.filter(d => d.latest_zone === "high");

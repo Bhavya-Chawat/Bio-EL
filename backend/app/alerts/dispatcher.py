@@ -8,16 +8,22 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+def safe_print(text: str):
+    try:
+        print(text)
+    except UnicodeEncodeError:
+        print(text.encode('ascii', errors='replace').decode('ascii'))
+
 def render_message(district_name: str, zone: str, language: str = "en") -> str:
     if language == "hi":
         return f"सतर्क: {district_name} जिले में जैविक खतरा '{zone}' स्तर को पार कर गया है। कृपया सुरक्षित रहें।"
     
     if zone == "high":
-        return f"🚨 BIOSHAZARD CRITICAL [{district_name}]: Cat-4 Waterborne Pathogen Risk (V. cholerae / Typhoid). Initiate BSL-2 precautions (N95, gloves) for all relief personnel. Doxycycline prophylaxis mandated. Secure clean water supplies."
+        return f"BioShield Alert: {district_name} is currently under High Risk. Please check the dashboard for details and follow safety guidelines."
     elif zone == "medium":
-        return f"⚠️ BIOSAFETY ELEVATED [{district_name}]: Zoonotic disease risk (Leptospirosis) due to stagnant water. Implement standard PPE and mosquito nets for field workers. Monitor for fever clusters."
+        return f"BioShield Alert: {district_name} is currently under Medium Risk. Please monitor the situation and take necessary precautions."
     else:
-        return f"✅ BIOSAFETY BASELINE [{district_name}]: Risk normalized. Continue routine vector-borne monitoring (Dengue, Malaria). No enhanced PPE required at this time."
+        return f"BioShield Alert: Risk level for {district_name} has normalized to low baseline."
 
 def send_twilio_sms(to_phone: str, message: str):
     account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
@@ -57,34 +63,44 @@ def dispatch_alerts(db: Session, risk_score: RiskScore, district: District):
         sub_val = threshold_values.get(sub.threshold, 2)
         
         if current_val >= sub_val:
-            if not is_debounced(sub.id, district.id, sub.threshold):
-                message = render_message(district.name, risk_score.zone, sub.preferred_language)
+            message = render_message(district.name, risk_score.zone, sub.preferred_language)
+            dispatch_mode = settings.ALERT_DISPATCH_MODE
+            
+            for channel in sub.channels:
+                if is_debounced(db, sub.id, district.id, channel, risk_score.zone):
+                    continue
+                    
+                channel_status = "sent"
                 
-                dispatch_mode = settings.ALERT_DISPATCH_MODE
-                status = "sent"
-                
-                # Real SMS Dispatch if phone exists and mode isn't explicitly mock
-                if "sms" in sub.channels and sub.phone:
-                    success = send_twilio_sms(sub.phone, message)
-                    if not success:
-                        status = "mock_logged"
-                        print(f"[MOCK SMS] to {sub.phone}: {message}")
-                elif dispatch_mode == "mock":
-                    status = "mock_logged"
-                    print(f"[MOCK EMAIL/SYSTEM] to {sub.email or sub.phone}: {message}")
-
-                for channel in sub.channels:
-                    log_entry = AlertsLog(
-                        subscriber_id=sub.id,
-                        district_id=district.id,
-                        risk_score_id=risk_score.id,
-                        channel=channel,
-                        dispatch_mode=dispatch_mode,
-                        status=status,
-                        message_body=message
-                    )
-                    db.add(log_entry)
-                
-                set_debounce(sub.id, district.id, sub.threshold)
+                if channel == "sms":
+                    # Strictly only send the SMS if it is a high risk area
+                    if risk_score.zone != "high":
+                        continue
+                        
+                    if sub.phone:
+                        success = send_twilio_sms(sub.phone, message)
+                        if success:
+                            safe_print(f"[SMS SENT] to {sub.phone}: {message}")
+                        else:
+                            channel_status = "mock_logged"
+                            safe_print(f"[MOCK SMS] to {sub.phone}: {message}")
+                    else:
+                        continue
+                else:
+                    # Mock dispatch for other channels
+                    channel_status = "mock_logged"
+                    safe_print(f"[MOCK EMAIL/SYSTEM] to {sub.email or sub.phone}: {message}")
+                    
+                log_entry = AlertsLog(
+                    subscriber_id=sub.id,
+                    district_id=district.id,
+                    risk_score_id=risk_score.id,
+                    channel=channel,
+                    dispatch_mode=dispatch_mode,
+                    status=channel_status,
+                    message_body=message
+                )
+                db.add(log_entry)
+                set_debounce(sub.id, district.id, channel, risk_score.zone)
                 
     db.commit()

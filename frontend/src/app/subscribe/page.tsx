@@ -6,17 +6,31 @@ import { Bell, Activity, ArrowRight, ShieldAlert, CheckCircle, Mail, Smartphone 
 export default function AlertsHub() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [districts, setDistricts] = useState<any[]>([]);
+  const [selectedDistrictId, setSelectedDistrictId] = useState<number>(1);
   const [status, setStatus] = useState("");
   const [alerts, setAlerts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Fetch recent dispatches
     fetch("http://localhost:8000/api/alerts/recent")
       .then(res => res.json())
       .then(data => {
         setAlerts(data);
         setLoading(false);
       });
+
+    // Fetch active districts list
+    fetch("http://localhost:8000/api/districts?seeded=true")
+      .then(res => res.json())
+      .then(data => {
+        setDistricts(data);
+        if (data.length > 0) {
+          setSelectedDistrictId(data[0].id);
+        }
+      })
+      .catch(err => console.error("Error loading active districts:", err));
   }, []);
 
   const handleSubscribe = async (e: React.FormEvent) => {
@@ -29,15 +43,21 @@ export default function AlertsHub() {
       body: JSON.stringify({
         email,
         phone,
-        district_ids: [1], // Mocking
+        district_ids: [selectedDistrictId], // Use selected district ID from dropdown
         threshold: "medium",
         channels: ["email", "sms"],
         language: "en"
       })
     });
     
-    if (res.ok) setStatus("Successfully subscribed!");
-    else setStatus("Subscription failed.");
+    if (res.ok) {
+      setStatus("Successfully subscribed!");
+      // Reset form
+      setEmail("");
+      setPhone("");
+    } else {
+      setStatus("Subscription failed.");
+    }
   };
 
   return (
@@ -136,6 +156,21 @@ export default function AlertsHub() {
                 className="w-full border rounded-lg px-4 py-2 bg-background focus:ring-2 focus:ring-primary outline-none transition" 
                 required 
               />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-1">Select District to Monitor</label>
+              <select 
+                value={selectedDistrictId}
+                onChange={e => setSelectedDistrictId(Number(e.target.value))}
+                className="w-full border rounded-lg px-4 py-2 bg-background focus:ring-2 focus:ring-primary outline-none transition cursor-pointer"
+                required
+              >
+                {districts.map((d: any) => (
+                  <option key={d.id} value={d.id}>
+                    {d.name} ({d.state})
+                  </option>
+                ))}
+              </select>
             </div>
             <button type="submit" className="w-full bg-primary text-primary-foreground font-bold py-3 rounded-lg shadow-md hover:bg-primary/90 transition-all flex justify-center items-center gap-2 group">
               Subscribe <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />

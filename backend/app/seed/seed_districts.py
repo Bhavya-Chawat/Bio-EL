@@ -19,6 +19,13 @@ def seed_db():
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
     db = SessionLocal()
 
+    # Clean up existing telemetry
+    from app.db.models import WeatherObservation, RiverLevel, RiskScore
+    db.query(WeatherObservation).delete()
+    db.query(RiverLevel).delete()
+    db.query(RiskScore).delete()
+    db.commit()
+
     # Seed Admin User
     admin = db.query(AdminUser).filter(AdminUser.username == "admin").first()
     if not admin:
@@ -99,9 +106,74 @@ def seed_db():
                 )
                 db.add(district)
 
+    # Seed 7 days of historical observations for active districts
+    from datetime import datetime, timedelta, timezone
+    from app.db.models import WeatherObservation, RiverLevel, RiskScore
+    import random
+    
+    active_districts = db.query(District).filter(District.is_seeded == True).all()
+    if db.query(RiskScore).count() < 100:
+        print("Seeding 7 days of historical telemetry...")
+        now = datetime.now(timezone.utc)
+        for d in active_districts:
+            for day_offset in range(7, 0, -1):
+                timestamp = now - timedelta(days=day_offset)
+                
+                rain = random.choice([0.0, 0.0, 0.0, 2.5, 8.4, 0.0, 15.2])
+                w_score = 1
+                if rain > 200:
+                    w_score = 3
+                elif rain > 64.5:
+                    w_score = 2
+                    
+                danger = d.river_danger_mark_m or 15.0
+                level = danger * random.uniform(0.70, 0.95)
+                e_score = 1
+                if d.historical_flood_freq_per_decade >= 7:
+                    e_score = 3
+                elif d.historical_flood_freq_per_decade >= 3:
+                    e_score = 2
+                    
+                r_score = w_score * e_score * (d.v_score or 1)
+                zone = "high" if r_score >= 15 else "medium" if r_score >= 7 else "low"
+                
+                weather = WeatherObservation(
+                    district_id=d.id,
+                    observed_at=timestamp,
+                    source="seed_historical",
+                    rainfall_mm_24h=rain,
+                    humidity_pct=random.uniform(60.0, 90.0),
+                    temperature_c=random.uniform(24.0, 31.0),
+                    w_score=w_score
+                )
+                db.add(weather)
+                
+                river = RiverLevel(
+                    district_id=d.id,
+                    observed_at=timestamp,
+                    source="seed_historical",
+                    level_m=level,
+                    danger_mark_m=danger,
+                    exceedance_pct=(level - danger) / danger,
+                    e_score=e_score
+                )
+                db.add(river)
+                
+                risk = RiskScore(
+                    district_id=d.id,
+                    computed_at=timestamp,
+                    w_score=w_score,
+                    e_score=e_score,
+                    v_score=d.v_score or 1,
+                    r_score=r_score,
+                    zone=zone,
+                    is_replay=False
+                )
+                db.add(risk)
+
     db.commit()
     db.close()
-    print("Districts seeded.")
+    print("Districts and history seeded.")
 
 if __name__ == "__main__":
     seed_db()

@@ -29,9 +29,18 @@ def subscribe(req: SubscribeRequest, request: Request, db: Session = Depends(get
     if not req.email and not req.phone:
         raise HTTPException(status_code=400, detail="Must provide email or phone")
         
+    phone = req.phone
+    if phone:
+        phone = phone.strip()
+        if not phone.startswith("+"):
+            if len(phone) == 10 and phone.isdigit():
+                phone = f"+91{phone}"
+            elif phone.startswith("91") and len(phone) == 12:
+                phone = f"+{phone}"
+
     sub = Subscriber(
         email=req.email,
-        phone=req.phone,
+        phone=phone,
         preferred_language=req.language,
         threshold=req.threshold,
         channels=req.channels

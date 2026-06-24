@@ -20,7 +20,7 @@ echo Starting BioShield Dashboard Services...
 echo ==============================================
 
 echo [1/2] Starting Backend Server on Port 8000...
-start "BioShield Backend" cmd /k "cd backend && .\venv\Scripts\activate && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+start "BioShield Backend" cmd /k "cd backend && .\.venv\Scripts\activate && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
 echo [2/2] Starting Next.js Frontend Server on Port 3000...
 start "BioShield Frontend" cmd /k "cd frontend && npm run dev"
@@ -33,6 +33,6 @@ echo - Backend API: http://localhost:8000/api/health
 echo - API Docs:    http://localhost:8000/docs
 echo.
 echo To run a manual ingestion cycle, open a new terminal in the backend folder and run:
-echo .\venv\Scripts\activate ^&^& python test_ingestion.py
+echo .\.venv\Scripts\activate ^&^& python test_ingestion.py
 echo.
 pause
